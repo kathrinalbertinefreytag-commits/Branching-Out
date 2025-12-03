@@ -20,8 +20,3 @@ if __name__ == "__main__":
     else:
         print("Filtering by that option is not yet supported.")
 
-"""
-def filter_by_email():
-    email = input("Enter email: ")
-    if email:
-        print("Thanks for email.")"""
