@@ -1,4 +1,50 @@
-def filter_by_email():
-    email = input("Enter email: ")
-    if email:
-        print("Thanks for email.")
+import json
+
+
+def filter_by_age():
+    """Filter users by age."""
+    try:
+        age_to_search = int(input("Enter age to filter users: "))
+    except ValueError:
+        print("Please enter a valid number for age.")
+        return
+
+    with open("users.json", "r") as file:
+        users = json.load(file)
+
+    filtered_users = [user for user in users if user.get("age") == age_to_search]
+
+    if filtered_users:
+        for user in filtered_users:
+            print(user)
+    else:
+        print("No users found with that age.")
+
+
+def filter_users_by_email(email):
+    """Filter users by email"""
+    with open("users.json", "r") as file:
+        users = json.load(file)
+
+    filtered_users = [user for user in users if user["email"].lower() == email.lower()]
+
+    if filtered_users:
+        for user in filtered_users:
+            print(user)
+    else:
+        print(f"No users found with email '{email}'.")
+
+
+if __name__ == "__main__":
+    filter_option = input(
+        "What would you like to filter by? (age/email): "
+    ).strip().lower()
+
+    if filter_option == "age":
+        age_to_search = input("Enter an age to filter users: ").strip()
+        filter_by_age(age_to_search)
+    elif filter_option == "email":
+        email_to_search = input("Enter an email to filter users: ").strip()
+        filter_users_by_email(email_to_search)
+    else:
+        print("Filtering by that option is not yet supported.")
